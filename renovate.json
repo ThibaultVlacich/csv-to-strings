@@ -1,5 +1,10 @@
 {
-  "extends": [
-    "config:base"
-  ]
+  "extends": ["config:base", ":semanticCommitTypeAll(chore)"],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "rangeStrategy": "pin",
+  "npm": {
+    "commitMessageTopic": "{{prettyDepType}} {{depName}}"
+  }
 }
