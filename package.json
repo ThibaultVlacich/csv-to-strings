@@ -2,6 +2,7 @@
   "name": "csv-to-strings",
   "version": "1.0.0",
   "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "bin": {
     "csv-to-strings": "bin/csv-to-strings"
   },
@@ -25,6 +26,7 @@
     "typescript": "3.8.3"
   },
   "scripts": {
+    "prepare": "npm run build",
     "build": "tsc -p .",
     "start": "node bin/csv-to-strings",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
