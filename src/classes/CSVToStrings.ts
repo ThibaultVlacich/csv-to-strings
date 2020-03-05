@@ -18,19 +18,28 @@ export default class CSVToStrings {
 
   public exec(): void {
     fs.createReadStream(program.in)
-      .pipe(CSVParser({ headers: false, skipLines: 1 }))
+      .pipe(
+        CSVParser({
+          headers: ['Category', 'Base', 'Translation'],
+          skipLines: 1
+        })
+      )
       .on('data', (data) => this.parse(data))
       .on('end', () => this.outputStringsFile())
   }
 
-  private parse(data: { '0': string; '1': string; '2': string }): void {
+  private parse(data: {
+    Category: string
+    Base: string
+    Translation: string
+  }): void {
     let categoryIndex = this.categories.findIndex((category) => {
-      return category.name === data[0]
+      return category.name === data.Category
     })
 
     if (categoryIndex === -1) {
       const category: Category = {
-        name: data[0],
+        name: data.Category,
         translations: []
       }
 
@@ -40,8 +49,8 @@ export default class CSVToStrings {
     }
 
     const translation: Translation = {
-      base: data[1],
-      translation: data[2]
+      base: data.Base,
+      translation: data.Translation
     }
 
     this.categories[categoryIndex].translations.push(translation)
