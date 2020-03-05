@@ -1,8 +1,9 @@
 {
   "name": "csv-to-strings",
   "version": "1.0.0",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": ["lib/"],
   "bin": {
     "csv-to-strings": "bin/csv-to-strings"
   },
