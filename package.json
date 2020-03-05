@@ -8,7 +8,7 @@
     "csv-to-strings": "bin/csv-to-strings"
   },
   "repository": "https://github.com/ThibaultVlacich/csv-to-strings.git",
-  "author": "Thibault Vlacich <thibault.vlacich@gmail.com>",
+  "author": "Thibault Vlacich <thibault@vlacich.fr>",
   "license": "MIT",
   "dependencies": {
     "commander": "4.1.1",
