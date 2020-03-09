@@ -1,3 +1,5 @@
+[![npm](https://img.shields.io/npm/v/csv-to-strings)](https://www.npmjs.com/package/csv-to-strings) [![GitHub stars](https://img.shields.io/github/stars/ThibaultVlacich/csv-to-strings)](https://github.com/ThibaultVlacich/csv-to-strings/stargazers)
+
 # CSV to Strings
 
 This simple tool written with TypeScript converts a CSV file of the following format:
