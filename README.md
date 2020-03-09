@@ -36,4 +36,4 @@ Then, run the tool
 csv-to-strings --in <path to csv file> (--out <path to strings file>)
 ```
 
-The `--in` parameter is required, while `--out` is not and defaults to `./out/translations.strings`
+The `--in` parameter is required, while `--out` is not and defaults to `<path of in file>/translations.strings`

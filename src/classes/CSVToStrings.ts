@@ -8,6 +8,8 @@ import Translation from '../models/Translation'
 
 export default class CSVToStrings {
   private categories: Category[] = []
+  private inPath: string
+  private outPath: string
 
   constructor() {
     program
@@ -25,10 +27,15 @@ export default class CSVToStrings {
       )
       process.exit(1)
     }
+
+    this.inPath = program.in
+    this.outPath =
+      program.out ||
+      path.join(path.dirname(this.inPath), 'translations.strings')
   }
 
   public exec(): void {
-    fs.createReadStream(program.in)
+    fs.createReadStream(this.inPath)
       .pipe(
         CSVParser({
           headers: ['Category', 'Base', 'Translation'],
@@ -75,8 +82,7 @@ export default class CSVToStrings {
   }
 
   private outputStringsFile(): void {
-    const outFile = program.out || './out/translations.strings'
-    const writeStream = fs.createWriteStream(outFile)
+    const writeStream = fs.createWriteStream(this.outPath)
 
     this.categories.forEach((category) => {
       writeStream.write(`/* ${category.name} */\r\n`)
