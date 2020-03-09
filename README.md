@@ -16,7 +16,7 @@ Into a `.strings` file of the following format:
 ```strings
 /* Category 1 */
 "Hello" = "Bonjour";
-"Thanks = "Merci";
+"Thanks" = "Merci";
 
 /* Category 2 */
 "Settings" = "Réglages";
