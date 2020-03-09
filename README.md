@@ -20,21 +20,18 @@ Into a `.strings` file of the following format:
 "Settings" = "Réglages";
 ```
 
-## Build
-
-To build the tool, simply install the required dependencies then build the source code
-
+## Install
 ```
-yarn
-yarn build
-```
+yarn global add csv-to-strings
 
-## Run
+OR
+
+npm install --global csv-to-strings
+```
 
 Then, run the tool
-
 ```
-bin/csv-to-strings --in <path to csv file> (--out <path to strings file>)
+csv-to-strings --in <path to csv file> (--out <path to strings file>)
 ```
 
 The `--in` parameter is required, while `--out` is not and defaults to `./out/translations.strings`
