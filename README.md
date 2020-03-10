@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/csv-to-strings)](https://www.npmjs.com/package/csv-to-strings) [![GitHub stars](https://img.shields.io/github/stars/ThibaultVlacich/csv-to-strings)](https://github.com/ThibaultVlacich/csv-to-strings/stargazers)
+![Build](https://github.com/ThibaultVlacich/csv-to-strings/workflows/Build/badge.svg) [![npm](https://badgen.net/npm/v/csv-to-strings)](https://www.npmjs.com/package/csv-to-strings) [![GitHub stars](https://badgen.net/github/stars/ThibaultVlacich/csv-to-strings)](https://github.com/ThibaultVlacich/csv-to-strings/stargazers) [![License](https://badgen.net/npm/license/csv-to-strings)](LICENSE)
 
 # CSV to Strings
 
