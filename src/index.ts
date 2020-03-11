@@ -1,4 +1,3 @@
-import CSVToString from './classes/CSVToStrings'
+import CSVToStrings from './classes/CSVToStrings'
 
-const csvToString = new CSVToString()
-csvToString.exec()
+export default CSVToStrings
