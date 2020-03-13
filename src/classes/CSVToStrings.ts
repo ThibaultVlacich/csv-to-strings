@@ -3,31 +3,57 @@ import { Readable } from 'stream'
 
 import Category from '../models/Category'
 import Translation from '../models/Translation'
-import { Platform } from '../models/Platform'
+
+import Compiler from '../models/Compiler'
+import AndroidCompiler from '../compilers/AndroidCompiler'
+import IOSCompiler from '../compilers/IOSCompiler'
+
+import InvalidPlatformError from '../errors/InvalidPlatformError'
 
 export default class CSVToStrings {
   private categories: Category[] = []
   private csvData: string
+  private compiler: Compiler
 
-  constructor(csvData: string) {
+  constructor(platform: string, csvData: string) {
     this.csvData = csvData
+
+    switch (platform) {
+      case 'android':
+        this.compiler = new AndroidCompiler()
+        break
+
+      case 'ios':
+        this.compiler = new IOSCompiler()
+        break
+
+      default:
+        throw new InvalidPlatformError()
+    }
   }
 
-  public exec(platform: Platform, callback: (output: string) => void): void {
+  public exec(callback: (output: string, format: string) => void): void {
     Readable.from(this.csvData)
       .pipe(
         CSVParser({
-          headers:
-            platform === Platform.IOS ? ['Category', 'Base', 'Translation'] : ['Category', 'Base', 'FR', 'Translation'],
+          headers: ['Category', 'Base', 'Translation'],
           skipLines: 1
         })
       )
       .on('data', (data) => this.parse(data))
-      .on('end', () => this.outputStringsFile(platform, callback))
+      .on('end', () => this.outputFile(callback))
   }
 
-  private parse(data: { Category: string; Base: string; Translation: string }): void {
-    if (!('Category' in data) || !('Base' in data) || !('Translation' in data)) {
+  private parse(data: {
+    Category: string
+    Base: string
+    Translation: string
+  }): void {
+    if (
+      !('Category' in data) ||
+      !('Base' in data) ||
+      !('Translation' in data)
+    ) {
       // Could not parse line correctly, ignore
       return
     }
@@ -55,30 +81,7 @@ export default class CSVToStrings {
     this.categories[categoryIndex].translations.push(translation)
   }
 
-  private outputStringsFile(platform: Platform, callback: (output: string) => void): void {
-    switch (platform) {
-      case Platform.ANDROID:
-        callback(`<?xml version="1.0" encoding="utf-8"?>
-<resources>
-${this.categories
-  .map(
-    ({ name, translations }) => `    <!--${name}-->
-${translations.map(({ base, translation }) => `    <string name="${base}">${translation}</string>`).join('\r\n')}
-`
-  )
-  .join('\r\n')}
-</resources>
-`)
-        return
-      case Platform.IOS:
-        callback(
-          this.categories
-            .map(
-              ({ name, translations }) => `/* ${name} */
-${translations.map(({ base, translation }) => `"${base}" = "${translation}";`).join('\r\n')}`
-            )
-            .join('\r\n')
-        )
-    }
+  private outputFile(callback: (output: string, format: string) => void): void {
+    callback(this.compiler.compile(this.categories), this.compiler.outputFormat)
   }
 }
