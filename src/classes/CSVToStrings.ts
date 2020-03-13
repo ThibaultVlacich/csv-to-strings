@@ -4,15 +4,35 @@ import { Readable } from 'stream'
 import Category from '../models/Category'
 import Translation from '../models/Translation'
 
+import Compiler from '../models/Compiler'
+import AndroidCompiler from '../compilers/AndroidCompiler'
+import IOSCompiler from '../compilers/IOSCompiler'
+
+import InvalidPlatformError from '../errors/InvalidPlatformError'
+
 export default class CSVToStrings {
   private categories: Category[] = []
   private csvData: string
+  private compiler: Compiler
 
-  constructor(csvData: string) {
+  constructor(platform: string, csvData: string) {
     this.csvData = csvData
+
+    switch (platform) {
+      case 'android':
+        this.compiler = new AndroidCompiler()
+        break
+
+      case 'ios':
+        this.compiler = new IOSCompiler()
+        break
+
+      default:
+        throw new InvalidPlatformError()
+    }
   }
 
-  public exec(callback: (output: string) => void): void {
+  public exec(callback: (output: string, format: string) => void): void {
     Readable.from(this.csvData)
       .pipe(
         CSVParser({
@@ -21,7 +41,7 @@ export default class CSVToStrings {
         })
       )
       .on('data', (data) => this.parse(data))
-      .on('end', () => this.outputStringsFile(callback))
+      .on('end', () => this.outputFile(callback))
   }
 
   private parse(data: {
@@ -61,19 +81,7 @@ export default class CSVToStrings {
     this.categories[categoryIndex].translations.push(translation)
   }
 
-  private outputStringsFile(callback: (output: string) => void): void {
-    let writeStream = ''
-
-    this.categories.forEach((category) => {
-      writeStream += `/* ${category.name} */\r\n`
-
-      category.translations.forEach((translation) => {
-        writeStream += `"${translation.base}" = "${translation.translation}";\r\n`
-      })
-
-      writeStream += '\r\n'
-    })
-
-    callback(writeStream)
+  private outputFile(callback: (output: string, format: string) => void): void {
+    callback(this.compiler.compile(this.categories), this.compiler.outputFormat)
   }
 }
