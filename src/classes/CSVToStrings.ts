@@ -3,6 +3,7 @@ import { Readable } from 'stream'
 
 import Category from '../models/Category'
 import Translation from '../models/Translation'
+import { Platform } from '../models/Platform'
 
 export default class CSVToStrings {
   private categories: Category[] = []
@@ -12,28 +13,21 @@ export default class CSVToStrings {
     this.csvData = csvData
   }
 
-  public exec(callback: (output: string) => void): void {
+  public exec(platform: Platform, callback: (output: string) => void): void {
     Readable.from(this.csvData)
       .pipe(
         CSVParser({
-          headers: ['Category', 'Base', 'Translation'],
+          headers:
+            platform === Platform.IOS ? ['Category', 'Base', 'Translation'] : ['Category', 'Base', 'FR', 'Translation'],
           skipLines: 1
         })
       )
       .on('data', (data) => this.parse(data))
-      .on('end', () => this.outputStringsFile(callback))
+      .on('end', () => this.outputStringsFile(platform, callback))
   }
 
-  private parse(data: {
-    Category: string
-    Base: string
-    Translation: string
-  }): void {
-    if (
-      !('Category' in data) ||
-      !('Base' in data) ||
-      !('Translation' in data)
-    ) {
+  private parse(data: { Category: string; Base: string; Translation: string }): void {
+    if (!('Category' in data) || !('Base' in data) || !('Translation' in data)) {
       // Could not parse line correctly, ignore
       return
     }
@@ -61,19 +55,30 @@ export default class CSVToStrings {
     this.categories[categoryIndex].translations.push(translation)
   }
 
-  private outputStringsFile(callback: (output: string) => void): void {
-    let writeStream = ''
-
-    this.categories.forEach((category) => {
-      writeStream += `/* ${category.name} */\r\n`
-
-      category.translations.forEach((translation) => {
-        writeStream += `"${translation.base}" = "${translation.translation}";\r\n`
-      })
-
-      writeStream += '\r\n'
-    })
-
-    callback(writeStream)
+  private outputStringsFile(platform: Platform, callback: (output: string) => void): void {
+    switch (platform) {
+      case Platform.ANDROID:
+        callback(`<?xml version="1.0" encoding="utf-8"?>
+<resources>
+${this.categories
+  .map(
+    ({ name, translations }) => `    <!--${name}-->
+${translations.map(({ base, translation }) => `    <string name="${base}">${translation}</string>`).join('\r\n')}
+`
+  )
+  .join('\r\n')}
+</resources>
+`)
+        return
+      case Platform.IOS:
+        callback(
+          this.categories
+            .map(
+              ({ name, translations }) => `/* ${name} */
+${translations.map(({ base, translation }) => `"${base}" = "${translation}";`).join('\r\n')}`
+            )
+            .join('\r\n')
+        )
+    }
   }
 }
