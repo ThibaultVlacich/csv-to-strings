@@ -37,7 +37,7 @@ export default class CSVToStrings {
       .pipe(
         CSVParser({
           headers: ['Category', 'Base', 'Translation'],
-          skipLines: 1
+          skipLines: 1,
         })
       )
       .on('data', (data) => this.parse(data))
@@ -65,7 +65,7 @@ export default class CSVToStrings {
     if (categoryIndex === -1) {
       const category: Category = {
         name: data.Category,
-        translations: []
+        translations: [],
       }
 
       this.categories.push(category)
@@ -75,7 +75,7 @@ export default class CSVToStrings {
 
     const translation: Translation = {
       base: data.Base,
-      translation: data.Translation
+      translation: data.Translation,
     }
 
     this.categories[categoryIndex].translations.push(translation)
