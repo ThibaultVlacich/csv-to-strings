@@ -15,6 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
+      timeout-minutes: 1
       with:
         node-version: 13.x
     - name: Lint
