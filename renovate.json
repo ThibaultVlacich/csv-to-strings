@@ -1,8 +1,15 @@
 {
-  "extends": ["config:base", ":semanticCommitTypeAll(chore)"],
+  "extends": [
+    "config:base",
+    ":semanticCommitTypeAll(chore)",
+    ":masterIssue"
+  ],
   "lockFileMaintenance": {
     "enabled": true
   },
+  "postUpdateOptions": [
+    "yarnDedupeHighest"
+  ],
   "rangeStrategy": "pin",
   "npm": {
     "commitMessageTopic": "{{prettyDepType}} {{depName}}"
