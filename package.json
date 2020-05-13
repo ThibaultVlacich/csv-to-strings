@@ -18,7 +18,7 @@
     "chalk": "4.0.0",
     "commander": "5.1.0",
     "csv-parser": "2.3.2",
-    "tslib": "1.12.0"
+    "tslib": "1.13.0"
   },
   "devDependencies": {
     "@semantic-release/git": "9.0.0",
