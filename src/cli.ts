@@ -7,7 +7,7 @@ import CSVToStrings from './classes/CSVToStrings'
 import InvalidPlatformError from './errors/InvalidPlatformError'
 
 program
-  .version(require('../package.json').version)
+  .version(require('../package.json').version) // eslint-disable-line @typescript-eslint/no-var-requires
   .description('A simple tool converting a CSV file to a .strings file')
   .requiredOption(
     '-p, --platform <platform>',
