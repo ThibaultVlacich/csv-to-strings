@@ -1086,13 +1086,12 @@ crypto-random-string@^2.0.0:
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-2.0.0.tgz#ef2a7a966ec11083388369baa02ebead229b30d5"
   integrity sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
 
-csv-parser@2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/csv-parser/-/csv-parser-2.3.3.tgz#978120ca14f879a17a8b977d9448daa738a38f65"
-  integrity sha512-czcyxc4/3Tt63w0oiK1zsnRgRD4PkqWaRSJ6eef63xC0f+5LVLuGdSYEcJwGp2euPgRHx+jmlH2Lb49anb1CGQ==
+csv-parser@2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/csv-parser/-/csv-parser-2.3.4.tgz#f8172e77d416bf89a422dc0bc6f56b4839962ecb"
+  integrity sha512-UlzYZEiHR5OQTh0C97HeZfSBOCshKIe0NpG5vYlgAcXheDKvZoIHvZNMgg1IGvtvbSKVRB6/UIA4xxjzKi2TFA==
   dependencies:
     minimist "^1.2.0"
-    through2 "^3.0.1"
 
 cyclist@^1.0.1:
   version "1.0.1"
@@ -4027,7 +4026,7 @@ read@1, read@~1.0.1, read@~1.0.7:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-"readable-stream@2 || 3", readable-stream@3, readable-stream@^3.6.0:
+readable-stream@3, readable-stream@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.6.0.tgz#337bbda3adc0706bd3e024426a286d4b4b2c9198"
   integrity sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==
@@ -4742,14 +4741,6 @@ through2@^2.0.0, through2@^2.0.2, through2@~2.0.0:
   dependencies:
     readable-stream "~2.3.6"
     xtend "~4.0.1"
-
-through2@^3.0.1:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/through2/-/through2-3.0.2.tgz#99f88931cfc761ec7678b41d5d7336b5b6a07bf4"
-  integrity sha512-enaDQ4MUyP2W6ZyT6EsMzqBPZaM/avg8iuo+l2d3QCs0J+6RaqkHV/2/lOwDTueBHeJ/2LG9lrLW3d5rWPucuQ==
-  dependencies:
-    inherits "^2.0.4"
-    readable-stream "2 || 3"
 
 through2@^4.0.0:
   version "4.0.2"
