@@ -23,7 +23,7 @@
   "devDependencies": {
     "@semantic-release/git": "9.0.0",
     "@semantic-release/github": "7.2.1",
-    "@types/node": "13.13.50",
+    "@types/node": "13.13.51",
     "@typescript-eslint/eslint-plugin": "4.22.0",
     "@typescript-eslint/parser": "4.22.0",
     "eslint": "7.25.0",
