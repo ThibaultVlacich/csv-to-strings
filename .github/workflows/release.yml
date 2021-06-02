@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v2
         timeout-minutes: 1
         with:
-          node-version: 13.x
+          node-version: 14.x
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build
