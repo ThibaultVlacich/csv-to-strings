@@ -15,7 +15,7 @@
   "author": "Thibault Vlacich <thibault@vlacich.fr>",
   "license": "MIT",
   "dependencies": {
-    "chalk": "4.1.1",
+    "chalk": "4.1.2",
     "commander": "6.2.1",
     "csv-parser": "3.0.0",
     "tslib": "2.3.0"
