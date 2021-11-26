@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import chalkTemplate from 'chalk-template'
 import fs from 'fs'
 import path from 'path'
 import program from 'commander'
@@ -19,7 +19,7 @@ program
 
 if (!fs.existsSync(program.in)) {
   console.log(
-    chalk`\r\n\t{bold.red Error}: File specified with --in parameter does not exist.\r\n`
+    chalkTemplate`\r\n\t{bold.red Error}: File specified with --in parameter does not exist.\r\n`
   )
   process.exit(1)
 }
@@ -38,17 +38,19 @@ try {
     fs.writeFileSync(outPath, output)
 
     console.log(
-      chalk`\r\n\t{bold.green Success}: .strings file successfully generated.\r\n` +
+      chalkTemplate`\r\n\t{bold.green Success}: .strings file successfully generated.\r\n` +
         `\tPath of the generated file: ${outPath}\r\n`
     )
   })
 } catch (e) {
   if (e instanceof InvalidPlatformError) {
     console.log(
-      chalk`\r\n\t{bold.red Error}: Unsupported platform. Accepted values: android, ios.\r\n`
+      chalkTemplate`\r\n\t{bold.red Error}: Unsupported platform. Accepted values: android, ios.\r\n`
     )
   } else {
-    console.log(chalk`\r\n\t{bold.red Error}: An unknown error happened.\r\n`)
+    console.log(
+      chalkTemplate`\r\n\t{bold.red Error}: An unknown error happened.\r\n`
+    )
     console.log(e)
   }
 }

@@ -2,7 +2,14 @@
   "name": "csv-to-strings",
   "version": "1.4.1",
   "description": "A simple tool to convert a CSV file to a .strings localization file usable by Xcode for iOS / macOS development.",
-  "keywords": ["csv", "strings", "localization", "xcode", "ios", "macos"],
+  "keywords": [
+    "csv",
+    "strings",
+    "localization",
+    "xcode",
+    "ios",
+    "macos"
+  ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -16,6 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "5.0.0",
+    "chalk-template": "0.2.0",
     "commander": "6.2.1",
     "csv-parser": "3.0.0",
     "tslib": "2.3.1"
